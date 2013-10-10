@@ -1,0 +1,9 @@
+---
+- name: Create Vagrant development environment
+  hosts: default
+  user: root
+ 
+  roles:
+    - common
+    - db
+    - devapp

@@ -1,0 +1,13 @@
+---
+# general settings
+app_name: todo
+app_dir: /home/vagrant/todo/
+venv_dir: /home/vagrant/venv/
+
+# database configuration
+pgsql_version: 9.1
+
+# database access configuration
+dbname: todo
+dbuser: todo
+dbpass: todo

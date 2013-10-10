@@ -1,0 +1,24 @@
+---
+  - name: update packages
+    sudo: True
+    apt:  update_cache=yes
+
+  - name: Install necessary packages
+    sudo: True
+    action: apt pkg=$item state=latest 
+    with_items:
+      - git
+      - vim
+      - supervisor
+      - libevent-dev
+      - libmysqlclient-dev
+      - pkg-config
+
+  - name: Install python packages
+    sudo: True
+    action: apt pkg=$item state=latest 
+    with_items:
+      - python
+      - python-dev
+      - python-pip
+      - python-virtualenv

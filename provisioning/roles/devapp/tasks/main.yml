@@ -1,0 +1,40 @@
+---
+- name: Install necessary packages
+  sudo: True
+  action: apt pkg=$item state=latest 
+  with_items:
+    - libcgraph5
+    - graphviz
+    - libgraphviz-dev
+    - graphviz-dev
+
+
+- name: Install necessary pip packages
+  pip:
+    name=distribute
+    version=0.6.48
+    virtualenv={{ venv_dir }}
+
+- name: Install pip requirements
+  pip: 
+    requirements={{ app_dir }}pip-requirements.txt
+    virtualenv={{ venv_dir }}
+
+- name: Django syncdb
+  shell: ls; {{ venv_dir }}/bin/python {{ app_dir }}manage.py syncdb --noinput
+
+# - name: Django migrate
+#   shell: ls; {{ venv_dir }}/bin/python {{ app_dir }}manage.py migrate --fake --noinput
+
+# - name: Load data
+#   shell: ls; {{ venv_dir }}/bin/python {{ app_dir }}manage.py loaddata {{ app_dir }}$item
+#   with_items:
+#     - init_data.json
+#     - dev_data.json
+#     - update_data.json
+
+- name: Create supervisor program config
+  sudo: True
+  action: template src=supervisor.conf dest=/etc/supervisor/conf.d/{{ app_name }}.conf
+  notify:
+    - restart app
