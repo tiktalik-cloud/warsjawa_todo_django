@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+ File taken from
+ https://github.com/dreamfactorysoftware/app-todo-angular
+ -->
+<html ng-app="TodoApp">
+<head>
+	<link href="/static/style.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body ng-controller="TodoCtrl">
+
+<div style="float: right">
+	<img src="/static/SG_pracownik_3.png" />
+</div>
+
+<div>
+	<h4>My Todo List</h4>
+
+	<div id="list-container">
+		<table class="table table-hover table-striped table-bordered todolist">
+			<tr ng-repeat="todo in Todos" id="row_{{todo.id}}">
+				<td><a ng-click="deleteItem()"><i class="icon icon-minus-sign"></i></a></td>
+				<td ng-attr-id="item_{{todo.id}}" style="width:100%" ng-click="updateItem()"><b ng-bind="todo.todo"></b></td>
+			</tr>
+		</table>
+	</div>
+	<input type="text" placeholder="Add Item" ng-model="todo.todo" />
+	<br />
+	<button ng-show="action == 'Add'" class="btn btn-primary" ng-click="addItem()">Add Item</button>
+</div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

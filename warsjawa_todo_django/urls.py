@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from Todo import views
 
 admin.autodiscover()
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register(r'item', views.ItemViewSet)
 
 urlpatterns = patterns('',
@@ -19,5 +20,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-	url(r'^', include(router.urls)),
+	url(r'^api/', include(router.urls)),
+	url(r'^$', TemplateView.as_view(template_name="index.html")),
 )
