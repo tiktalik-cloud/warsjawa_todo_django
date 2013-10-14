@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.33.10" #, port: 22
   config.vm.synced_folder "./", "/home/vagrant/todo"
 
-  config.vm.provider :"tiktalik.com" do |provider, override|
+  config.vm.provider :tiktalik do |provider, override|
     override.ssh.private_key_path = '~/.ssh/id_dsa'
     override.vm.box = 'tiktalik'
     override.vm.box_url = 'https://github.com/tiktalik-cloud/vagrant-tiktalik/raw/master/box/tiktalik.box'
@@ -24,5 +24,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "provisioning/playbook.yml"
+    ansible.verbose = "extra"
   end
 end
